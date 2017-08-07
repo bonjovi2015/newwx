@@ -1,0 +1,103 @@
+<import src="/pages/common/tabbar"/>
+<view class="weui-loadmore" wx:if="{{loading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+
+<!-- header -->
+<view class="page-header page-header-cover"
+  wx:if="{{!loading}}"
+  bindtap="bindEdit"
+  style="background-image: url('{{user.absCover}}')">
+  <view class="weui-media-box__hd">
+      <image class="user-icon-md" src="{{user.picture || '/images/person.jpg'}}" />
+      <view class="user-name-text" style="color: white">  {{user.fullname || user.username}} </view>
+  </view>
+</view>
+
+<view class="weui-panel weui-panel_access" style="margin-top: 0">
+    <view class="weui-panel__bd text-center">
+      <navigator url="/pages/topic/index?cid={{user.personalCid}}" hover-class="navigator-hover" style="display:inline-block">
+        <view class="user-item inline-block">
+          <text class="user-item-label">动态</text>
+          <text class="user-item-value">{{personalTopicCount}}</text>
+        </view>
+      </navigator>
+
+      <navigator url="/pages/user/index?type=follower&userslug={{user.userslug}}" hover-class="navigator-hover" style="display:inline-block">
+      <view class="user-item">
+        <text class="user-item-label">粉丝</text>
+        <text class="user-item-value">{{user.followerCount}}</text>
+      </view>
+      </navigator>
+
+      <navigator url="/pages/user/index?type=following&userslug={{user.userslug}}" hover-class="navigator-hover" style="display:inline-block">
+      <view class="user-item">
+        <text class="user-item-label">关注</text>
+        <text class="user-item-value">{{user.followingCount}}</text>
+      </view>
+      </navigator>
+
+      <button type="primary"
+        wx:if="{{user.isSelf === false && user.isFollowing === false}}"
+        bindtap="followUser"> 关注 </button>
+
+      <button type="warn"
+        wx:if="{{user.isSelf === false && user.isFollowing}}"
+        bindtap="unfollowUser"> 取消关注 </button>
+    </view>
+</view>
+
+<view wx:if="{{user.isSelfOrAdminOrGlobalModerator}}" class="weui-panel weui-panel_access">
+    <view class="weui-panel__bd">
+    	<navigator url="/pages/topic/index?type=center" hover-class="navigator-hover">
+        <view class="weui-cell weui-cell_access weui-cell_link">
+            <view class="weui-cell__bd">我的所有主题</view>
+        </view>
+      </navigator>
+    </view>
+</view>
+
+<view wx:if="{{user.isSelfOrAdminOrGlobalModerator}}" class="weui-panel weui-panel_access">
+    <view class="weui-panel__bd">
+    	<navigator url="/pages/topic/index?type=signed-event" hover-class="navigator-hover">
+        <view class="weui-cell weui-cell_access weui-cell_link">
+            <view class="weui-cell__bd">我参加的活动</view>
+        </view>
+      </navigator>
+    </view>
+</view>
+
+<view wx:if="{{user.isSelfOrAdminOrGlobalModerator}}" class="weui-panel weui-panel_access">
+    <view class="weui-panel__bd">
+    	<navigator url="/pages/topic/index?type=event" hover-class="navigator-hover">
+        <view class="weui-cell weui-cell_access weui-cell_link">
+            <view class="weui-cell__bd">我发起的活动</view>
+        </view>
+      </navigator>
+    </view>
+</view>
+
+<view wx:if="{{user.isSelfOrAdminOrGlobalModerator}}" class="weui-panel weui-panel_access">
+    <view class="weui-panel__bd">
+    	<navigator url="/pages/topic/index?type=bookmarks" hover-class="navigator-hover">
+        <view class="weui-cell weui-cell_access weui-cell_link">
+            <view class="weui-cell__bd">我关注的话题</view>
+        </view>
+      </navigator>
+    </view>
+</view>
+
+<view wx:if="{{user.isSelfOrAdminOrGlobalModerator}}" class="weui-panel weui-panel_access">
+    <view class="weui-panel__bd">
+    	<navigator url="/pages/topic/index?type=topics&cid={{globalData.mainCategories.discuss}}" hover-class="navigator-hover">
+        <view class="weui-cell weui-cell_access weui-cell_link">
+            <view class="weui-cell__bd">我发起的话题</view>
+        </view>
+      </navigator>
+    </view>
+</view>
+
+<view class="page__bd">
+<template is="tabbar" data="{{globalData}}" />
+</view>

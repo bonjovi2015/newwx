@@ -1,0 +1,125 @@
+<view class="weui-loadmore" wx:if="{{loading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+
+<view class="page" wx:if="{{!loading}}">
+  <view class="weui-panel">
+    <view class="weui-panel__hd">
+
+    <view wx:if="{{absThumb}}" class="topic-banner" style="background-image: url({{absThumb}});   background-position:center;">
+    </view>
+
+    <view wx:if="{{!category.isPersonal}}" bindtap="topicEdit">
+        <!-- <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+            <image class="user-icon-md" src="{{mainPost.user.picture}}" />
+        </view> -->
+
+        <view class="weui-cell__bd weui-cell_primary">
+            <text class="page__title weui-media-box__title">{{title}}</text>
+        </view>
+    </view>
+
+        <view class="topic-author">
+          <navigator
+            url="/pages/center/index?userslug={{user.userslug}}"
+            hover-class="navigator-hover"
+            style="display:inline-block">
+            <image class="user-icon-sm" src="{{user.picture || '/images/person.jpg'}}" />
+            <text class="username"> {{mainPost.user.fullname || mainPost.user.username}} </text>
+          </navigator>
+          <text wx:if="{{!category.isPersonal}}" class="user-badge"> {{mainPost.user.groupTitle || ''}} </text>
+          <view class="text-muted pull-right">{{mainPost.bDate}}</view>
+        </view>
+
+    <view bindtap="topicEdit">
+      <view wx:if="{{etopic}}" class="etopic-date">活动开始日期：{{etopic.date}}</view>
+      <view wx:if="{{etopic}}" class="etopic-date">活动结束日期：{{etopic.closeDate}}</view>
+
+       <text> {{mainPost.content}} </text>
+       <view class="page__bd">
+           <block wx:for="{{pictures}}" wx:key="*this">
+                <image bindtap="previewPictures" src="{{item}}" id="{{item}}" mode="aspectFill" />
+           </block>
+       </view>
+
+       <view class="weui-cell__bd weui-cell_primary">
+         <navigator
+           wx:if="{{category.isDiscuss}}"
+           url="/pages/user/index?pid={{mainPost.pid}}"
+           hover-class="navigator-hover"
+           class="pull-right">
+
+           <view class="weui-media-box__info__meta">{{mainPost.bookmarks || 0}}关注</view>
+         </navigator>
+
+         <navigator
+           wx:if="{{category.isEvent}}"
+           url="/pages/user/index?etid={{etopic.etid}}"
+           hover-class="navigator-hover"
+           class="pull-right">
+
+           <view class="weui-media-box__info__meta">{{etopic.memberCount || 0}} 报名</view>
+         </navigator>
+       </view>
+    </view>
+
+  </view>
+</view>
+
+    <view wx:if="{{!category.isEvent}}" class="page__bd">
+      <view class="weui-panel">
+  	    <view class="weui-panel__hd">留言 (共有{{comments.length}}个留言)</view>
+  	    <view class="weui-panel__bd">
+  	    	<scroll-view scroll-y style="max-height: 500px;" bindscrolltolower="getData" enable-back-to-top="true">
+  	        <view class="weui-media-box weui-media-box_small-appmsg">
+  	            <view class="weui-cells weui-cells_in-small-appmsg">
+  	                <block wx:for="{{comments}}" wx:for-item="comment" wx:key="id">
+  	                <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" style="font-size:0.9em;">
+  	                    <view class="weui-cell__hd" style="display: block;">
+
+  	                    </view>
+
+  	                    <view class="weui-cell__bd weui-cell_primary">
+                          <view class="text-muted pull-right">{{comment.bDate}}</view>
+                          <navigator
+                            url="/pages/center/index?userslug={{comment.user.userslug}}"
+                            hover-class="navigator-hover"
+                            style="display: inline-block">
+  	                    	    <image src="{{comment.user.picture}}" class="user-icon-sm inline-block"/>
+                              <text class="text-muted">{{comment.user.fullname || comment.user.username}}</text>
+                          </navigator>
+                          <view>
+  	                        <text class="comment-content">{{comment.content}}</text>
+                          </view>
+  	                    </view>
+  	                </view>
+  	                </block>
+  	            </view>
+  	        </view>
+  	        </scroll-view>
+  	    </view>
+  	   </view>
+    </view>
+
+    <view wx:if="{{!category.isEvent}}" class="bottom-sticky">
+      <view class="comment-area weui-cell weui-cell_access page__bd_spacing">
+        <form bindsubmit="commentSubmit" style="width: 100%">
+          <input name="comment" class="comment-input" placeholder="留言..." value="{{commentContent}}" auto-focus />
+          <button wx:if="{{category.isDiscuss}}" class="pull-right weui-btn_default" size="mini" bindtap="bookmark">{{mainPost.bookmarked ? '取消' : ''}}关注</button>
+          <button class="pull-right weui-form-preview__btn_primary" formType="submit" size="mini">评论</button>
+        </form>
+      </view>
+    </view>
+
+    <view class="bottom-sticky" wx:if="{{etopic.canSignup}}">
+      <button disabled wx:if="{{category.parentCid}}"> 审核中 </button>
+      <view wx:else>
+        <button type="primary" bindtap="signup" wx:if="{{!etopic.signed && !eventClosed}}"> 报名 </button>
+        <button bindtap="editSignup" wx:if="{{etopic.signed && !eventClosed}}"> 取消报名 </button>
+        <button disabled wx:if="{{eventClosed}}"> 已过期 </button>
+      </view>
+
+    </view>
+
+</view>

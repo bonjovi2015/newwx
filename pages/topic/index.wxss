@@ -1,0 +1,50 @@
+.top-bar {
+  background-color: gray;
+  top: -1px;
+}
+
+.image-add {
+  float: right;
+  width: 45px;
+	height: 32px;
+	/*margin-top: 2px; */
+	/*background-color:;*/
+	border-radius:5px;
+}
+
+.icon-search {
+  float: right;
+    position:relative;
+    top:7px;
+    z-index: 9999999;
+}
+
+.picture-item-1 {
+	width: 100%;
+	position: relative;
+	height: 100px;
+	display: inline-block;
+
+  margin-top:10px;
+  background-color: black;
+}
+
+.picture-item-2 {
+	width: 50%;
+	position: relative;
+	height: 100px;
+	display: inline-block;
+
+  margin-top:10px;
+  background-color: black;
+}
+
+.picture-item-3 {
+	width: 33.33%;
+	position: relative;
+	height: 100px;
+	display: inline-block;
+
+  margin-top:10px;
+  background-color: black;
+}

@@ -1,0 +1,64 @@
+<import src="/pages/common/tabbar"/>
+<import src="/pages/common/topic_list_items" />
+
+<view class="page">
+  <view class="weui-panel weui-panel_access top-bar"
+    wx:if="{{cid}}">
+    <view class="weui-panel__bd">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <navigator url="/pages/search/search" class="navigator-search">
+            <!--
+            <icon type="search" class="icon-search" color="white" size="20"/>
+      		  -->
+            <image mode="aspectFit" class="image-add" src="/images/search.png"></image>
+          </navigator>
+          <navigator
+            url="/pages/topic/edit?cid={{subCid || cid}}{{isEvent?'&isEvent=true':''}}{{isDiscuss?'&isDiscuss=true':''}}{{isPersonal?'&isPersonal=true':''}}"
+            class="navigator-add"
+            wx:if="{{privileges['topics:create']}}">
+      			<image mode="aspectFit" class="image-add" src="/images/create.png"></image>
+      		</navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+
+    <scroll-view scroll-y style="max-height: 1000px;" bindscrolltolower="scrolltolower" enable-back-to-top="true">
+
+        <template is="topic_list_items" data="{{topics, isEvent, isDiscuss, isPersonal}}" />
+
+        <view class="weui-loadmore" wx:if="{{loading}}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+
+        <view class="weui-loadmore weui-loadmore_line" wx:if="{{!loading && topics.length==0}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        </view>
+
+        <view class="weui-loadmore weui-loadmore_line" wx:if="{{!loading && topics.length>0 && pagination.currentPage == pagination.pageCount}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">没有更多了</view>
+        </view>
+
+    </scroll-view>
+
+<!--
+    <view class="page__bd" wx:if="{{cid === 2}}">
+    
+    <template is="tabbar-topic" data="{{globalData}}" />
+    
+    </view>
+    <view class="page__bd" wx:else>
+    
+    <template is="tabbar" data="{{globalData}}" />
+    
+    </view>
+-->
+    <view class="page__bd" >
+    
+    <template is="tabbar" data="{{globalData}}" />
+    
+    </view>
+    
+</view>

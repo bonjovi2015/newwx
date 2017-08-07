@@ -1,0 +1,12 @@
+.upload-thumb {
+  padding: 10px 0;
+}
+
+.time-picker {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+input[name="title"] {
+  display: inline-block;
+}

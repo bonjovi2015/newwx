@@ -1,0 +1,65 @@
+<template name="topic_list_items">
+    <block wx:for="{{topics}}" wx:for-item="topic" wx:key="topic.tid">
+      <view class="weui-panel">
+  	    <view class="weui-panel__hd">
+
+              <view class="topic-author">
+                <navigator
+                  url="/pages/center/index?userslug={{topic.user.userslug}}"
+                  hover-class="navigator-hover"
+                  style="display:inline-block">
+                  <image class="user-icon-sm" src="{{topic.user.picture || '/images/person.jpg'}}" />
+                  <text class="username"> {{topic.user.fullname || topic.user.username}} </text>
+                </navigator>
+                <text wx:if="{{!isPersonal}}" class="user-badge"> {{topic.user.groupTitle}} </text>
+                <text wx:if="{{topic.etopic}}" class="etopic-count pull-right"> 报名数：{{topic.etopic.memberCount}}</text>
+
+                <view wx:if="{{isPersonal}}"
+                  data-topic="{{topic}}"
+                  bindtap="deleteTopic"
+                  class="text-muted pull-right">
+                  删除
+                </view>
+              </view>
+
+              <navigator url="/pages/topic/detail?id={{topic.tid}}" hover-class="weui-cell_active">
+
+                <view wx:if="{{topic.absThumb && topic.etopic}}" class="topic-thumb-wrapper">
+                    <image class="topic-thumb" mode="widthFix" src="{{topic.absThumb}}" />
+                </view>
+
+                <view class="topic-body">
+                    <view wx:if="{{!isPersonal}}" class="weui-media-box__title">{{topic.title}}</view>
+                    <!-- Topics -->
+                    <view style="height: 100%">
+                        <view wx:if="{{!topic.etopic}}" class="weui-media-box__desc">
+                            <view class="text-single-line">{{topic.content}}</view>
+                            <view wx:if="{{isPersonal}}" class="picture-list">
+                              <block wx:for="{{topic.pictures}}" wx:for-item="picture" wx:key="*this">
+                                <image class="{{topic.pictureItemClass}}" mode="aspectFit" src="{{picture}}" />
+                              </block>
+                            </view>
+
+                        </view>
+                        <view wx:if="{{!topic.etopic}}" class="weui-media-box__info pull-left">
+                          <view class="text-muted pull-right">{{topic.bDate}}</view>
+                        </view>
+                        <view wx:if="{{!topic.etopic}}" class="weui-media-box__info pull-right">
+                            <view wx:if="{{isDiscuss}}" class="weui-media-box__info__meta">{{topic.bookmarks || 0}}关注</view>
+                            <view class="weui-media-box__info__meta">{{topic.postcount-1}}评论</view>
+                        </view>
+                        <view wx:if="{{topic.etopic}}" class="weui-media-box__info pull-right">
+                            <view class="weui-media-box__info__meta">
+                              {{topic.eventClosed ? "已结束" : "火热进行中"}}
+                            </view>
+                        </view>
+
+                    </view>
+                </view>
+
+          </navigator>
+        </view>
+      </view>
+    </block>
+
+</template>

@@ -1,0 +1,50 @@
+<import src="/pages/common/tabbar"/>
+<import src="/pages/common/topic_list_items" />
+<import src="/pages/common/user_list_items" />
+
+<view class="page">
+  <view>
+    <view class="weui-panel weui-panel_access">
+          <view class="search-topics pull-left {{type === 'topics' ? 'active': ''}}" size="mini" bindtap="switchSearchType">内容</view>
+          <view class="search-users pull-right {{type !== 'topics' ? 'active': ''}}" size="mini" bindtap="switchSearchType">用户</view>
+    </view>
+
+    <form bindsubmit="bindSearch">
+        <view class="weui-panel weui-panel_access">
+          <view class="weui-panel__bd">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__bd">
+                  <input name="query" class="weui-input" bindblur="saveQuery"
+                    value="{{query}}"
+                    bindconfirm="bindSearch" placeholder="搜索..." />
+                  <icon bindtap="bindSearch" type="search" class="icon-search" color="gray" size="18"/>
+              </view>
+            </view>
+          </view>
+        </view>
+    </form>
+  </view>
+
+  <scroll-view scroll-y style="max-height: 1000px;" bindscrolltolower="scrolltolower" enable-back-to-top="true">
+
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-panel__bd">
+      <view class="weui-loadmore" wx:if="{{loading}}">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在搜索中...</view>
+      </view>
+      <view class="weui-loadmore weui-loadmore_line"
+        wx:if="{{!loading && (topics.length===0 && users.length===0)}}">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+      </view>
+
+      <template is="topic_list_items" data="{{topics}}" wx:if="{{type === 'topics'}}" />
+      <template is="user_list_items" data="{{users}}" wx:if="{{type === 'users'}}" />
+    </view>
+  </view>
+  </scroll-view>
+
+  <view class="page__bd">
+    <template is="tabbar" data="{{globalData}}" />
+  </view>
+</view>

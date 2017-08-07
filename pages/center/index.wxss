@@ -1,0 +1,12 @@
+.user-item {
+  display: inline-block;
+  zoom: 1;
+  margin: 10px 15px;
+  color: #555;
+}
+.user-item-label {
+}
+.user-item-value {
+  display: block;
+  opacity: .8;
+}

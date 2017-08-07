@@ -1,0 +1,11 @@
+.etopic-date {
+  margin: 5px 0 10px 0;
+  text-align: center;
+}
+.comment-area {
+  background-color: darkgray;
+}
+.comment-input {
+  background-color: white;
+  display: inline-block;
+}

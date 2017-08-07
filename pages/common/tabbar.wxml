@@ -1,0 +1,35 @@
+<template name="tabbar">
+
+<view class="tabbar">
+  <view class="tabbar-item-4">
+		<navigator url="/pages/topic/index?cid={{globalData.mainCategories.etopic}}" open-type="reLaunch" class="tabbar-item-inner">
+		<image class="tabbar-item-img" mode="aspectFit" src="/images/activity-check.png" wx:if="{{globalData.cid == 1 }}"></image>
+    <image class="tabbar-item-img" mode="aspectFit" src="/images/activity.png" wx:else></image>
+		<text class="tabbar-text">活动</text>
+		</navigator>
+	</view>
+
+  <view class="tabbar-item-4">
+		<navigator url="/pages/topic/index?cid={{globalData.mainCategories.discuss}}" open-type="reLaunch" class="tabbar-item-inner">
+		<image class="tabbar-item-img" mode="aspectFit" src="/images/topic-check.png" wx:if="{{globalData.cid == 2 }}" ></image>
+    <image class="tabbar-item-img" mode="aspectFit"  src="/images/topic.png" wx:else></image>
+		<text class="tabbar-text">话题</text>
+		</navigator>
+	</view>
+
+  <view class="tabbar-item-4">
+		<navigator url="/pages/topic/index?cid={{globalData.userInfo.personalCid}}" open-type="reLaunch" class="tabbar-item-inner">
+		<image class="tabbar-item-img" mode="aspectFit" src="/images/subject.png"></image>
+		<text class="tabbar-text">动态</text>
+		</navigator>
+	</view>
+
+  <view class="tabbar-item-4">
+		<navigator url="/pages/center/index" open-type="reLaunch" class="tabbar-item-inner">
+		<image class="tabbar-item-img" mode="aspectFit" src="/images/subject.png"></image>
+		<text class="tabbar-text">我的</text>
+		</navigator>
+	</view>
+</view>
+
+</template>

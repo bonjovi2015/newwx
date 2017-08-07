@@ -1,0 +1,14 @@
+<template name="user_list_items">
+  <block wx:for="{{users}}" wx:for-item="user" wx:key="user.uid">
+    <!-- <view class="weui-panel"> -->
+	    <view class="weui-panel__hd">
+        <navigator open-type="redirect"
+          url="/pages/center/index?userslug={{user.userslug}}"
+          hover-class="navigator-hover">
+          <image class="user-icon-md" src="{{user.picture || '/images/person.jpg'}}" />
+          <view class="user-name-text">  {{user.fullname || user.username}} </view>
+        </navigator>
+      </view>
+    <!-- </view> -->
+  </block>
+</template>

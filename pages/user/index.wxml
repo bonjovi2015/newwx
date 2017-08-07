@@ -1,0 +1,30 @@
+<!--pages/event/attendees.wxml-->
+<import src="/pages/common/user_list_items" />
+
+
+<view class="weui-loadmore" wx:if="{{loading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+
+<view class="page" wx:if="{{!loading}}">
+    <scroll-view scroll-y style="max-height: 2500px;" bindscrolltolower="getData" enable-back-to-top="true">
+      <template is="user_list_items" data="{{users}}" />
+
+    <!-- <view class="" hover-class="" style="font-size:0.9em;">
+      <view class="weui-loadmore weui-loadmore_line" wx:if="{{users.length===0}}">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+      </view>
+        <block wx:for="{{users}}" wx:for-item="user" wx:key="*this">
+             <view class="weui-media-box__hd">
+               <navigator open-type="redirect"
+                 url="/pages/center/index?userslug={{user.userslug}}"
+                 hover-class="navigator-hover">
+                 <image class="user-icon-md" src="{{user.picture || '/images/person.jpg'}}" />
+                 <view class="user-name-text">  {{user.fullname || user.username}} </view>
+               </navigator>
+             </view>
+        </block>
+    </view> -->
+    </scroll-view>
+</view>

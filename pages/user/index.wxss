@@ -1,0 +1,6 @@
+.user-name-text {
+  position: relative;
+  display: inline-block;
+  top: -18px;
+  margin-left: 10px;
+}

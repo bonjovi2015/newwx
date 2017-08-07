@@ -1,0 +1,115 @@
+<view class="page">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+
+    <view class="page__bd">
+      <view wx:if="{{localThumb || absThumb}}">
+          <image src="{{localThumb || absThumb}}" class="topic-thumb" bindtap="deleteThumb" />
+      </view>
+
+        <view wx:if="{{!isPersonal}}" class="weui-cells">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd">
+                    <input name="title" class="weui-input" placeholder="标题" value="{{title}}" />
+                    <view wx:if="{{isEvent}}"
+                      class="upload-thumb pull-right text-muted"
+                      bindtap="chooseThumb">上传题图</view>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-cells" wx:if="{{isEvent}}">
+
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label text-muted">活动开始时间</view>
+                </view>
+                <view class="weui-cell__bd date">
+                    <picker class="weui-input time-picker"
+                      id="dateStart"
+                      name="date"
+                      mode="date"
+                      value="{{dateStart}}"
+                      start="2015-09-01"
+                      end="2030-12-01"
+                      bindchange="bindDateTimeChange">
+                        <view class="picker">
+                            {{dateStart}}
+                        </view>
+                    </picker>
+                    <picker class="weui-input time-picker"
+                      id="timeStart"
+                      name="time" mode="time"
+                      value="{{timeStart}}"
+                      start="09:01" end="21:01"
+                      bindchange="bindDateTimeChange">
+                        <view class="picker">
+                            {{timeStart}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label text-muted">活动结束时间</view>
+                </view>
+                <view class="weui-cell__bd time">
+                  <picker class="weui-input time-picker"
+                    id="dateEnd"
+                    name="date" mode="date"
+                    value="{{dateEnd}}"
+                    start="2015-09-01" end="2030-12-01"
+                    bindchange="bindDateTimeChange">
+                      <view class="picker">
+                          {{dateEnd}}
+                      </view>
+                  </picker>
+                  <picker class="weui-input time-picker"
+                    id="timeEnd"
+                    name="time" mode="time"
+                    value="{{timeEnd}}"
+                    start="09:01" end="21:01"
+                    bindchange="bindDateTimeChange">
+                      <view class="picker">
+                          {{timeEnd}}
+                      </view>
+                  </picker>
+                </view>
+                <view class="weui-cell__ft" wx:if="{{error}}">
+                    <icon type="warn" size="23" color="#E64340"></icon>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-cells">
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">
+                    <textarea name="content" class="weui-input" placeholder="描述" style="height: 5em;width:100%;" value="{{mainPost.content}}" />
+
+                    <view class="images-wrapper" style="padding:0">
+                        <!-- <text class="images-text">选择描述图片</text> -->
+                        <view class="images-list">
+                            <block wx:for="{{pictures}}" wx:for-item="image" wx:key="*this" wx:for-index="idx">
+                                <image src="{{image}}" class="images-image" data-index="{{idx}}" bindtap="deletePictures" />
+                            </block>
+                            <view class="images-image image-plus" bindtap="choosePicture">
+                              <view class="image-plus-horizontal"></view>
+                              <view class="image-plus-vertical"></view>
+                            </view>
+                        </view>
+                    </view>
+
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="page__bd page__bd_spacing">
+        <button type="primary" formType="submit"> {{tid ? '斒辑' : '发布'}}{{name}} </button>
+        <button type="warn" bindtap="bindDelEvent" wx:if="{{tid}}"> 删除{{name}} </button>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <button type="default" bindtap="bindNavBack"> 取消 </button>
+    </view>
+
+    </form>
+</view>
